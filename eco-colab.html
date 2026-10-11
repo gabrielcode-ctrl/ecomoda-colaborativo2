@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>EcoModa - E-Commerce Colaborativo de Moda Circular</title>
+
+  
+
+  <!-- Google Fonts: Roboto & Material Symbols Outlined -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+  
+
+  <!-- Importação dos Material Web Components (M3) via CDN -->
+
+  <script type="module">
+
+    import '@material/web/all.js';
+
+    import { styles as sharedStyles } from '@material/web/all.js';
+
+  </script>
+
+  <style>
+
+    :root {
+
+      --md-sys-color-primary: #2E6A4F;
+
+      --md-sys-color-on-primary: #FFFFFF;
+
+      --md-sys-color-primary-container: #B2F0CE;
+
+      --md-sys-color-on-primary-container: #002113;
+
+      --md-sys-color-secondary: #4E6355;
+
+      --md-sys-color-secondary-container: #D1E8D6;
+
+      --md-sys-color-background: #F6FBF7;
+
+      --md-sys-color-on-background: #191C1A;
+
+      --md-sys-color-surface: #F6FBF7;
+
+      --md-sys-color-surface-container: #EDF5EE;
+
+      --md-sys-color-on-surface: #191C1A;
+
+      --md-sys-color-outline: #707973;
+
+      --md-sys-typescale-body-medium-font: 'Roboto', sans-serif;
+
+    }
+
+    * {
+
+      box-sizing: border-box;
+
+      margin: 0;
+
+      padding: 0;
+
+    }
+
+    body {
+
+      font-family: 'Roboto', sans-serif;
+
+      background-color: var(--md-sys-color-background);
+
+      color: var(--md-sys-color-on-background);
+
+      display: flex;
+
+      flex-direction: column;
+
+      min-height: 100vh;
+
+    }
+
+    /* Top App Bar */
+
+    header.app-bar {
+
+      background-color: var(--md-sys-color-surface-container);
+
+      padding: 12px 24px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 100;
+
+    }
+
+    .brand {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      color: var(--md-sys-color-primary);
+
+      font-weight: 700;
+
+      font-size: 1.25rem;
+
+    }
+
+    /* Tabs Navigation */
+
+    md-tabs {
+
+      --md-primary-tab-active-indicator-color: var(--md-sys-color-primary);
+
+    }
+
+    /* Container Principal */
+
+    main.content {
+
+      flex: 1;
+
+      max-width: 1200px;
+
+      width: 100%;
+
+      margin: 0 auto;
+
+      padding: 24px 16px;
+
+    }
+
+    .tab-content {
+
+      display: none;
+
+    }
+
+    .tab-content.active {
+
+      display: block;
+
+    }
+
+    /* Grid da Vitrine Coletiva (Cooperação) */
+
+    .filter-section {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 16px;
+
+      align-items: center;
+
+      margin-bottom: 24px;
+
+      background-color: var(--md-sys-color-surface-container);
+
+      padding: 16px;
+
+      border-radius: 12px;
+
+    }
+
+    .product-grid {
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+      gap: 20px;
+
+    }
+
+    .product-card {
+
+      background: white;
+
+      border-radius: 16px;
+
+      overflow: hidden;
+
+      border: 1px solid rgba(0,0,0,0.08);
+
+      display: flex;
+
+      flex-direction: column;
+
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    }
+
+    .product-card:hover {
+
+      transform: translateY(-4px);
+
+      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+
+    }
+
+    .product-image {
+
+      width: 100%;
+
+      height: 200px;
+
+      object-fit: cover;
+
+      background-color: #E0E0E0;
+
+    }
+
+    .product-info {
+
+      padding: 16px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      flex: 1;
+
+    }
+
+    .product-vendor {
+
+      font-size: 0.8rem;
+
+      color: var(--md-sys-color-secondary);
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.5px;
+
+      font-weight: 500;
+
+    }
+
+    .product-title {
+
+      font-size: 1.1rem;
+
+      font-weight: 500;
+
+      margin: 4px 0;
+
+    }
+
+    .product-price {
+
+      font-size: 1.25rem;
+
+      font-weight: 700;
+
+      color: var(--md-sys-color-primary);
+
+      margin-bottom: 8px;
+
+    }
+
+    .eco-badge {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 4px;
+
+      background-color: var(--md-sys-color-primary-container);
+
+      color: var(--md-sys-color-on-primary-container);
+
+      font-size: 0.75rem;
+
+      padding: 4px 8px;
+
+      border-radius: 8px;
+
+      width: fit-content;
+
+      margin-bottom: 12px;
+
+    }
+
+    .product-actions {
+
+      margin-top: auto;
+
+      display: flex;
+
+      gap: 8px;
+
+    }
+
+    /* Chat e Negociação (Comunicação) */
+
+    .chat-layout {
+
+      display: grid;
+
+      grid-template-columns: 300px 1fr;
+
+      gap: 16px;
+
+      height: 600px;
+
+      background: white;
+
+      border-radius: 16px;
+
+      border: 1px solid rgba(0,0,0,0.08);
+
+      overflow: hidden;
+
+    }
+
+    .chat-threads {
+
+      border-right: 1px solid rgba(0,0,0,0.08);
+
+      background-color: var(--md-sys-color-surface-container);
+
+    }
+
+    .thread-item {
+
+      padding: 16px;
+
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+
+      cursor: pointer;
+
+    }
+
+    .thread-item.active {
+
+      background-color: white;
+
+      border-left: 4px solid var(--md-sys-color-primary);
+
+    }
+
+    .chat-window {
+
+      display: flex;
+
+      flex-direction: column;
+
+      height: 100%;
+
+    }
+
+    .chat-header {
+
+      padding: 16px;
+
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+
+      font-weight: 500;
+
+      background: white;
+
+    }
+
+    .chat-messages {
+
+      flex: 1;
+
+      padding: 16px;
+
+      overflow-y: auto;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 12px;
+
+      background: #FAFAFA;
+
+    }
+
+    .message-bubble {
+
+      max-width: 70%;
+
+      padding: 10px 14px;
+
+      border-radius: 12px;
+
+      font-size: 0.9rem;
+
+      line-height: 1.4;
+
+    }
+
+    .message-bubble.received {
+
+      background: white;
+
+      border: 1px solid rgba(0,0,0,0.08);
+
+      align-self: flex-start;
+
+    }
+
+    .message-bubble.sent {
+
+      background: var(--md-sys-color-primary-container);
+
+      color: var(--md-sys-color-on-primary-container);
+
+      align-self: flex-end;
+
+    }
+
+    .chat-input-zone {
+
+      padding: 12px 16px;
+
+      border-top: 1px solid rgba(0,0,0,0.08);
+
+      display: flex;
+
+      gap: 8px;
+
+      align-items: center;
+
+      background: white;
+
+    }
+
+    /* Dashboard e Pedidos (Coordenação) */
+
+    .metrics-container {
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 16px;
+
+      margin-bottom: 32px;
+
+    }
+
+    .metric-card {
+
+      background: white;
+
+      padding: 20px;
+
+      border-radius: 16px;
+
+      border: 1px solid rgba(0,0,0,0.08);
+
+      text-align: center;
+
+    }
+
+    .metric-card span.material-symbols-outlined {
+
+      font-size: 36px;
+
+      color: var(--md-sys-color-primary);
+
+    }
+
+    .metric-value {
+
+      font-size: 1.8rem;
+
+      font-weight: 700;
+
+      color: var(--md-sys-color-primary);
+
+      margin: 8px 0 4px 0;
+
+    }
+
+    .metric-label {
+
+      font-size: 0.85rem;
+
+      color: var(--md-sys-color-secondary);
+
+    }
+
+    .orders-table-container {
+
+      background: white;
+
+      border-radius: 16px;
+
+      border: 1px solid rgba(0,0,0,0.08);
+
+      overflow: hidden;
+
+    }
+
+    table {
+
+      width: 100%;
+
+      border-collapse: collapse;
+
+      text-align: left;
+
+      font-size: 0.9rem;
+
+    }
+
+    th, td {
+
+      padding: 14px 16px;
+
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+
+    }
+
+    th {
+
+      background-color: var(--md-sys-color-surface-container);
+
+      font-weight: 500;
+
+    }
+
+    .status-tag {
+
+      padding: 4px 10px;
+
+      border-radius: 12px;
+
+      font-size: 0.75rem;
+
+      font-weight: 500;
+
+      display: inline-block;
+
+    }
+
+    .status-Anunciado { background: #E0F2FE; color: #0369A1; }
+
+    .status-Reservado { background: #FEF3C7; color: #B45309; }
+
+    .status-Pago { background: #DCFCE7; color: #15803D; }
+
+    .status-Enviado { background: #F3E8FF; color: #6B21A8; }
+
+    @media (max-width: 768px) {
+
+      .chat-layout {
+
+        grid-template-columns: 1fr;
+
+      }
+
+      .chat-threads {
+
+        display: none;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Top App Bar -->
+
+  <header class="app-bar">
+
+    <div class="brand">
+
+      <span class="material-symbols-outlined">eco</span>
+
+      <span>EcoModa Colaborativa</span>
+
+    </div>
+
+    
+
+    <md-tabs id="navigation-tabs">
+
+      <md-primary-tab id="tab-vitrine" active>
+
+        <span class="material-symbols-outlined" slot="icon">storefront</span>
+
+        Vitrine Coletiva
+
+      </md-primary-tab>
+
+      <md-primary-tab id="tab-chat">
+
+        <span class="material-symbols-outlined" slot="icon">chat</span>
+
+        Central de Negociação
+
+      </md-primary-tab>
+
+      <md-primary-tab id="tab-pedidos">
+
+        <span class="material-symbols-outlined" slot="icon">local_shipping</span>
+
+        Gestão & Impacto
+
+      </md-primary-tab>
+
+    </md-tabs>
+
+  </header>
+
+  <main class="content">
+
+    <!-- COOPERAÇÃO: Vitrine Coletiva Multi-Brechó -->
+
+    <section id="content-vitrine" class="tab-content active">
+
+      <div class="filter-section">
+
+        <md-outlined-text-field id="search-input" label="Buscar peças ou brechós..." style="flex: 1; min-width: 200px;">
+
+          <span class="material-symbols-outlined" slot="leading-icon">search</span>
+
+        </md-outlined-text-field>
+
+        <md-chip-set>
+
+          <md-filter-chip label="Todos" selected id="chip-filter-all"></md-filter-chip>
+
+          <md-filter-chip label="Casacos" id="chip-filter-casacos"></md-filter-chip>
+
+          <md-filter-chip label="Calças" id="chip-filter-calcas"></md-filter-chip>
+
+          <md-filter-chip label="Sapatos" id="chip-filter-sapatos"></md-filter-chip>
+
+        </md-chip-set>
+
+      </div>
+
+      <div class="product-grid" id="product-grid">
+
+        <!-- Renderizado dinamicamente via JS -->
+
+      </div>
+
+    </section>
+
+    <!-- COMUNICAÇÃO: Central de Negociação / Chat -->
+
+    <section id="content-chat" class="tab-content">
+
+      <div class="chat-layout">
+
+        <div class="chat-threads">
+
+          <div class="thread-item active">
+
+            <div style="font-weight: 500;">Brechó Vintage Sp</div>
+
+            <div style="font-size: 0.8rem; color: var(--md-sys-color-secondary);">Sobre: Jaqueta Jeans Anos 90</div>
+
+          </div>
+
+          <div class="thread-item">
+
+            <div style="font-weight: 500;">Retrô Chic</div>
+
+            <div style="font-size: 0.8rem; color: var(--md-sys-color-secondary);">Proposta de Desapego</div>
+
+          </div>
+
+        </div>
+
+        <div class="chat-window">
+
+          <div class="chat-header">
+
+            Conversa com Brechó Vintage Sp
+
+          </div>
+
+          <div class="chat-messages" id="chat-messages">
+
+            <div class="message-bubble received">
+
+              Olá! A Jaqueta Jeans ainda está disponível para reserva?
+
+            </div>
+
+            <div class="message-bubble sent">
+
+              Olá! Sim, está disponível. Caso tenha interesse, posso reservar por até 24h!
+
+            </div>
+
+          </div>
+
+          <div class="chat-input-zone">
+
+            <md-outlined-text-field id="chat-input" placeholder="Digite sua mensagem ou oferta..." style="flex: 1;"></md-outlined-text-field>
+
+            <md-filled-button id="btn-send-message">
+
+              <span class="material-symbols-outlined">send</span>
+
+            </md-filled-button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- COORDENAÇÃO: Gestão de Pedidos & Impacto Socioambiental -->
+
+    <section id="content-pedidos" class="tab-content">
+
+      
+
+      <!-- Métricas de Impacto (Moda Circular) -->
+
+      <div class="metrics-container">
+
+        <div class="metric-card">
+
+          <span class="material-symbols-outlined">delete_sweep</span>
+
+          <div class="metric-value" id="metric-waste">142.5 kg</div>
+
+          <div class="metric-label">Lixo Têxtil Evitado</div>
+
+        </div>
+
+        <div class="metric-card">
+
+          <span class="material-symbols-outlined">water_drop</span>
+
+          <div class="metric-value">380.000 L</div>
+
+          <div class="metric-label">Água Poupada</div>
+
+        </div>
+
+        <div class="metric-card">
+
+          <span class="material-symbols-outlined">sync</span>
+
+          <div class="metric-value" id="metric-orders">28</div>
+
+          <div class="metric-label">Peças em Circulação</div>
+
+        </div>
+
+      </div>
+
+      <!-- Tabela de Rastreamento de Pedidos -->
+
+      <div class="orders-table-container">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>ID Pedido</th>
+
+              <th>Item</th>
+
+              <th>Brechó Origem</th>
+
+              <th>Data</th>
+
+              <th>Status do Pedido</th>
+
+              <th>Ação</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="orders-table-body">
+
+            <!-- Renderizado dinamicamente via JS -->
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Componentes Globais de Feedback Visual (Heurística 1) -->
+
+  <md-snackbar id="global-snackbar" label-text="Ação realizada com sucesso!"></md-snackbar>
+
+  <script>
+
+    // --- DADOS DA APLICAÇÃO (MOCK STATE) ---
+
+    const productsData = [
+
+      { id: 1, title: 'Jaqueta Jeans Vintage 90s', category: 'Casacos', price: 'R$ 120,00', vendor: 'Brechó Vintage Sp', eco: 'Economia de 2.5kg CO2', image: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=400' },
+
+      { id: 2, title: 'Calça Alfaiataria Xadrez', category: 'Calças', price: 'R$ 85,00', vendor: 'Retrô Chic', eco: 'Algodão Reutilizado', image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400' },
+
+      { id: 3, title: 'Bota Couro Sustentável', category: 'Sapatos', price: 'R$ 150,00', vendor: 'EcoGarimpo', eco: 'Recuperação Artesanal', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400' },
+
+      { id: 4, title: 'Sobretudo Lã Batida', category: 'Casacos', price: 'R$ 210,00', vendor: 'Brechó Vintage Sp', eco: 'Lixo Têxtil Evitado 1.8kg', image: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=400' }
+
+    ];
+
+    const ordersData = [
+
+      { id: '#ORD-9401', item: 'Jaqueta Jeans Vintage 90s', vendor: 'Brechó Vintage Sp', date: '12/10/2023', status: 'Reservado' },
+
+      { id: '#ORD-9382', item: 'Calça Alfaiataria Xadrez', vendor: 'Retrô Chic', date: '10/10/2023', status: 'Pago' },
+
+      { id: '#ORD-9210', item: 'Vestido Estampa Floral', vendor: 'EcoGarimpo', date: '01/10/2023', status: 'Enviado' }
+
+    ];
+
+    // --- GERENCIAMENTO DE NAVEGAÇÃO (TABS) ---
+
+    const tabs = document.getElementById('navigation-tabs');
+
+    const tabContents = {
+
+      'tab-vitrine': document.getElementById('content-vitrine'),
+
+      'tab-chat': document.getElementById('content-chat'),
+
+      'tab-pedidos': document.getElementById('content-pedidos')
+
+    };
+
+    tabs.addEventListener('change', (e) => {
+
+      const activeTabId = e.target.activeTabIndex === 0 ? 'tab-vitrine' : 
+
+                          e.target.activeTabIndex === 1 ? 'tab-chat' : 'tab-pedidos';
+
+      
+
+      Object.keys(tabContents).forEach(id => {
+
+        if (id === activeTabId) {
+
+          tabContents[id].classList.add('active');
+
+        } else {
+
+          tabContents[id].classList.remove('active');
+
+        }
+
+      });
+
+    });
+
+    // --- RENDERIZAÇÃO DA VITRINE (COOPERAÇÃO) ---
+
+    function renderProducts(items) {
+
+      const grid = document.getElementById('product-grid');
+
+      grid.innerHTML = '';
+
+      items.forEach(product => {
+
+        const card = document.createElement('div');
+
+        card.className = 'product-card';
+
+        card.innerHTML = `
+
+          <img src="${product.image}" alt="${product.title}" class="product-image">
+
+          <div class="product-info">
+
+            <span class="product-vendor">${product.vendor}</span>
+
+            <div class="product-title">${product.title}</div>
+
+            <div class="product-price">${product.price}</div>
+
+            <div class="eco-badge">
+
+              <span class="material-symbols-outlined" style="font-size: 14px;">eco</span>
+
+              ${product.eco}
+
+            </div>
+
+            <div class="product-actions">
+
+              <md-filled-button style="flex:1;" onclick="reserveProduct('${product.title}')">Reservar</md-filled-button>
+
+              <md-outlined-icon-button onclick="openChatWith('${product.vendor}')">
+
+                <span class="material-symbols-outlined">chat</span>
+
+              </md-outlined-icon-button>
+
+            </div>
+
+          </div>
+
+        `;
+
+        grid.appendChild(card);
+
+      });
+
+    }
+
+    // --- FILTRAGEM DE PRODUTOS ---
+
+    document.getElementById('search-input').addEventListener('input', (e) => {
+
+      const query = e.target.value.toLowerCase();
+
+      const filtered = productsData.filter(p => p.title.toLowerCase().includes(query) || p.vendor.toLowerCase().includes(query));
+
+      renderProducts(filtered);
+
+    });
+
+    // --- RENDERIZAÇÃO DE PEDIDOS (COORDENAÇÃO) ---
+
+    function renderOrders() {
+
+      const tbody = document.getElementById('orders-table-body');
+
+      tbody.innerHTML = '';
+
+      ordersData.forEach(order => {
+
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `
+
+          <td><strong>${order.id}</strong></td>
+
+          <td>${order.item}</td>
+
+          <td>${order.vendor}</td>
+
+          <td>${order.date}</td>
+
+          <td><span class="status-tag status-${order.status}">${order.status}</span></td>
+
+          <td>
+
+            ${order.status === 'Reservado' ? 
+
+              `<md-text-button onclick="updateOrderStatus('${order.id}', 'Pago')">Confirmar Pgto</md-text-button>` : 
+
+              `<md-text-button disabled>Concluído</md-text-button>`}
+
+          </td>
+
+        `;
+
+        tbody.appendChild(tr);
+
+      });
+
+    }
+
+    // --- AÇÕES DO SISTEMA E FEEDBACK (HEURÍSTICAS DE NIELSEN) ---
+
+    function showNotification(text) {
+
+      const snackbar = document.getElementById('global-snackbar');
+
+      snackbar.labelText = text;
+
+      snackbar.open = true;
+
+    }
+
+    window.reserveProduct = function(title) {
+
+      ordersData.unshift({
+
+        id: `#ORD-${Math.floor(1000 + Math.random() * 9000)}`,
+
+        item: title,
+
+        vendor: 'Brechó Parceiro',
+
+        date: new Date().toLocaleDateString('pt-BR'),
+
+        status: 'Reservado'
+
+      });
+
+      renderOrders();
+
+      showNotification(`Item "${title}" reservado com sucesso! Rastreie na aba de Gestão.`);
+
+    };
+
+    window.updateOrderStatus = function(orderId, newStatus) {
+
+      const order = ordersData.find(o => o.id === orderId);
+
+      if (order) {
+
+        order.status = newStatus;
+
+        renderOrders();
+
+        showNotification(`Status do pedido ${orderId} atualizado para: ${newStatus}`);
+
+      }
+
+    };
+
+    window.openChatWith = function(vendor) {
+
+      tabs.activeTabIndex = 1;
+
+      tabContents['tab-vitrine'].classList.remove('active');
+
+      tabContents['tab-chat'].classList.add('active');
+
+      showNotification(`Iniciando chat com ${vendor}`);
+
+    };
+
+    // Chat Interaction
+
+    document.getElementById('btn-send-message').addEventListener('click', () => {
+
+      const input = document.getElementById('chat-input');
+
+      if (input.value.trim() !== '') {
+
+        const chatMessages = document.getElementById('chat-messages');
+
+        const msg = document.createElement('div');
+
+        msg.className = 'message-bubble sent';
+
+        msg.textContent = input.value;
+
+        chatMessages.appendChild(msg);
+
+        input.value = '';
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      }
+
+    });
+
+    // Inicialização da Aplicação
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+      renderProducts(productsData);
+
+      renderOrders();
+
+    });
+
+  </script>
+
+</body>
+
+</html>
